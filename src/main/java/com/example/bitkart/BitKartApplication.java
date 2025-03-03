@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BitkartApplication {
+public class BitKartApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BitkartApplication.class, args);
+		SpringApplication.run(BitKartApplication.class, args);
 	}
 
 }

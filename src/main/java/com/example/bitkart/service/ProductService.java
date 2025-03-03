@@ -1,19 +1,25 @@
 package com.example.bitkart.service;
 
 import com.example.bitkart.model.Product;
+import com.example.bitkart.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.ProductRepository;
+
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-    public List<Product> findAll() {
+
+    public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 
