@@ -24,7 +24,7 @@ public class ProductController {
         return ResponseEntity.ok().body(productService.getAllProducts());
     }
 
-    @ResponseStatus(HttpStatus.CREATED) // 201
+    @ResponseStatus(HttpStatus.CREATED) // 201w
     @PostMapping
     public Product create(@RequestBody Product book) {
         return productService.save(book);
