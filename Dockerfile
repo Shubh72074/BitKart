@@ -1,14 +1,26 @@
-# Use Java 21 base image
-FROM eclipse-temurin:21-jdk-alpine
+# Stage 1: Build the application using Maven and JDK 21
+FROM maven:3.9.6-eclipse-temurin-21 AS builder
 
-# Set working directory inside the container
+# Set the working directory
 WORKDIR /app
 
-# Copy the JAR file into the container
-COPY target/*.jar app.jar
+# Copy all project files to the container
+COPY . .
 
-# Expose the port your Spring Boot app uses
+# Run Maven build (clean + package)
+RUN mvn clean package -DskipTests
+
+# Stage 2: Run the built application using a smaller JDK 21 runtime image
+FROM eclipse-temurin:21-jdk-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Copy the packaged jar from the builder stage
+COPY --from=builder /app/target/*.jar app.jar
+
+# Expose the application port
 EXPOSE 8080
 
-# Run the JAR file
+# Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
