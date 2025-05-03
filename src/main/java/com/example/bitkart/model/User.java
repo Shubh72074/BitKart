@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,4 +17,11 @@ public class User {
     private String name;
     private String email;
     private String password;
+    private Role role;
+    private String phoneNumber;
+    private String address;
+    private String city;
+    private String state;
+    private String country;
+    private String zipCode;
 }

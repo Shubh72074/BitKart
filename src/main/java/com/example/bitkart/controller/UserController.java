@@ -19,6 +19,9 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<User>> getUserById(@RequestParam Long id) {
+        if (userService.userById(id).isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok().body(userService.userById(id));
     }
 }
