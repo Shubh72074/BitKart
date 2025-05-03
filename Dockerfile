@@ -1,22 +1,14 @@
-# Importing JDK and copying required files
-FROM openjdk:19-jdk AS build
+# Use Java 21 base image
+FROM eclipse-temurin:21-jdk-alpine
+
+# Set working directory inside the container
 WORKDIR /app
-COPY pom.xml .
-COPY src src
 
-# Copy Maven wrapper
-COPY mvnw .
-COPY .mvn .mvn
+# Copy the JAR file into the container
+COPY target/*.jar app.jar
 
-# Set execution permission for the Maven wrapper
-RUN chmod +x ./mvnw
-RUN ./mvnw clean package -DskipTests
-
-# Stage 2: Create the final Docker image using OpenJDK 19
-FROM openjdk:19-jdk
-VOLUME /tmp
-
-# Copy the JAR from the build stage
-COPY --from=build /app/target/*.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+# Expose the port your Spring Boot app uses
 EXPOSE 8080
+
+# Run the JAR file
+ENTRYPOINT ["java", "-jar", "app.jar"]
